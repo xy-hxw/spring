@@ -101,6 +101,7 @@ public abstract aspect AbstractDependencyInjectionAspect {
 	/**
 	 * Configure the given bean.
 	 */
+	@Override
 	public abstract void configureBean(Object bean);
 
 }
