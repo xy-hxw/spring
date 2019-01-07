@@ -77,12 +77,15 @@ public class ClassPathResource extends AbstractFileResolvingResource {
 	 */
 	public ClassPathResource(String path, @Nullable ClassLoader classLoader) {
 		Assert.notNull(path, "Path must not be null");
+		System.out.println("开始处理路径="+path);
 		String pathToUse = StringUtils.cleanPath(path);
 		if (pathToUse.startsWith("/")) {
 			pathToUse = pathToUse.substring(1);
 		}
+		System.out.println("路径处理结束="+pathToUse);
 		this.path = pathToUse;
 		this.classLoader = (classLoader != null ? classLoader : ClassUtils.getDefaultClassLoader());
+		System.out.println("获取类加载器="+this.classLoader);
 	}
 
 	/**

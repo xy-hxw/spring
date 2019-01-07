@@ -179,6 +179,7 @@ public abstract class ClassUtils {
 	public static ClassLoader getDefaultClassLoader() {
 		ClassLoader cl = null;
 		try {
+			System.out.println("获取线程上下文类加载器 Thread.currentThread().getContextClassLoader()");
 			cl = Thread.currentThread().getContextClassLoader();
 		}
 		catch (Throwable ex) {
@@ -186,10 +187,12 @@ public abstract class ClassUtils {
 		}
 		if (cl == null) {
 			// No thread context class loader -> use class loader of this class.
+			System.out.println("获取当前类的类加载器 ClassUtils.class.getClassLoader();");
 			cl = ClassUtils.class.getClassLoader();
 			if (cl == null) {
 				// getClassLoader() returning null indicates the bootstrap ClassLoader
 				try {
+					System.out.println("获取system类加载器 ClassLoader.getSystemClassLoader();");
 					cl = ClassLoader.getSystemClassLoader();
 				}
 				catch (Throwable ex) {
