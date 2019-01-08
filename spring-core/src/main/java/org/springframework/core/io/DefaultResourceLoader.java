@@ -24,6 +24,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.core.log.LogDelegateFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
@@ -46,6 +49,8 @@ import org.springframework.util.StringUtils;
  * @see org.springframework.context.support.ClassPathXmlApplicationContext
  */
 public class DefaultResourceLoader implements ResourceLoader {
+
+	private static Log logger = LogFactory.getLog(DefaultResourceLoader.class);
 
 	@Nullable
 	private ClassLoader classLoader;
@@ -194,6 +199,7 @@ public class DefaultResourceLoader implements ResourceLoader {
 
 		public ClassPathContextResource(String path, @Nullable ClassLoader classLoader) {
 			super(path, classLoader);
+			logger.info("DefaultResourceLoader的内部类ClassPathContextResource 调用ClassPathResource的构造方法 ");
 		}
 
 		@Override
