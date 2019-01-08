@@ -179,8 +179,8 @@ public abstract class ClassUtils {
 	public static ClassLoader getDefaultClassLoader() {
 		ClassLoader cl = null;
 		try {
-			System.out.println("获取线程上下文类加载器 Thread.currentThread().getContextClassLoader()");
 			cl = Thread.currentThread().getContextClassLoader();
+			System.out.println("获取线程上下文类加载器 Thread.currentThread().getContextClassLoader()"+cl.toString());
 		}
 		catch (Throwable ex) {
 			// Cannot access thread context ClassLoader - falling back...
