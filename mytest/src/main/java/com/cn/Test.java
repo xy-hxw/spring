@@ -1,13 +1,15 @@
 package com.cn;
 
 
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
+/**
+ *
+ * IOC容器加载配置文件
+ */
 public class Test {
 
 	/**
@@ -24,23 +26,23 @@ public class Test {
 	 * spring-core包下加载配置文件
 	 */
 	private static void testXmlBeanFactory() {
-		ClassPathResource classPathResource = new ClassPathResource("bean.xml");
-		XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(classPathResource);
-		TestBean foo = (TestBean) xmlBeanFactory.getBean("foo");
-		System.out.println(foo.getAge());
+//		ClassPathResource classPathResource = new ClassPathResource("bean.xml");
+//		XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(new ClassPathResource("bean.xml"));
+//		TestBean foo = (TestBean) xmlBeanFactory.getBean("foo");
+//		System.out.println(foo.getAge());
 	}
 
 	/**
 	 * 调用的ClassPathResource获取配置文件和类加载器
 	 */
 	private static void testDefaultResourceLoader () {
-		Resource resource = new DefaultResourceLoader().getResource("bean.xml");
+		Resource resource = new DefaultResourceLoader().getResource("/bean.xml");
 		System.out.println(resource);
 	}
 
 	public static void main(String[] args) {
-//		combineWithExpressionLanguage();
-//		testXmlBeanFactory();
+		combineWithExpressionLanguage();
+		testXmlBeanFactory();
 		testDefaultResourceLoader();
 	}
 }

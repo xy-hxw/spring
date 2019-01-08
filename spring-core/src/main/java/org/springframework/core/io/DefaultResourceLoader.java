@@ -67,6 +67,7 @@ public class DefaultResourceLoader implements ResourceLoader {
 	 * @see java.lang.Thread#getContextClassLoader()
 	 */
 	public DefaultResourceLoader() {
+		logger.info("创建默认类加载器 this.classLoader = ClassUtils.getDefaultClassLoader()");
 		this.classLoader = ClassUtils.getDefaultClassLoader();
 	}
 
@@ -144,7 +145,11 @@ public class DefaultResourceLoader implements ResourceLoader {
 		this.resourceCaches.clear();
 	}
 
-
+	/**
+	 * 加载指定位置资源
+	 * @param location the resource location 资源路径
+	 * @return 资源路径  类加载器
+	 */
 	@Override
 	public Resource getResource(String location) {
 		Assert.notNull(location, "Location must not be null");
