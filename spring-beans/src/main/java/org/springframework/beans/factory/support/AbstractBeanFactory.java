@@ -181,7 +181,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	}
 
 	/**
-	 * Create a new AbstractBeanFactory with the given parent.
+	 * Create a new
+	 *
+	 *
+	 * with the given parent.
 	 * @param parentBeanFactory parent bean factory, or {@code null} if none
 	 * @see #getBean
 	 */

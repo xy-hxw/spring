@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javax.inject.Provider;
 
@@ -120,6 +121,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	@Nullable
 	private static Class<?> javaxInjectProviderClass;
 
+	/**
+	 * IOC容器的初始化
+	 */
 	static {
 		try {
 			javaxInjectProviderClass =

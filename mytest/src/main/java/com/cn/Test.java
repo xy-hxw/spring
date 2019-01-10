@@ -1,13 +1,16 @@
 package com.cn;
 
 
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
 /**
- *
+ * @author huoxianwei
+ * @date 2019/1/8 15:21
  * IOC容器加载配置文件
  */
 public class Test {
@@ -26,10 +29,13 @@ public class Test {
 	 * spring-core包下加载配置文件
 	 */
 	private static void testXmlBeanFactory() {
-//		ClassPathResource classPathResource = new ClassPathResource("bean.xml");
-//		XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(new ClassPathResource("bean.xml"));
-//		TestBean foo = (TestBean) xmlBeanFactory.getBean("foo");
-//		System.out.println(foo.getAge());
+		// 资源文件加载  类加载器初始化
+		ClassPathResource classPathResource = new ClassPathResource("bean.xml");
+		// 控制反转，由IOC对文件解析，注册BeanDefinition
+		XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(new ClassPathResource("bean.xml"));
+		// 第一次取值时，进行依赖注入
+		TestBean foo = (TestBean) xmlBeanFactory.getBean("foo");
+		System.out.println(foo.getAge());
 	}
 
 	/**
@@ -42,7 +48,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		combineWithExpressionLanguage();
-//		testXmlBeanFactory();
-//		testDefaultResourceLoader();
+		testXmlBeanFactory();
+		testDefaultResourceLoader();
 	}
 }
