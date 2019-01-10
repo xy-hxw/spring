@@ -16,12 +16,12 @@ public class MyBeanTest {
 
 	@Before
 	public void before () {
-		System.out.println("----------bean的生命周期开始-----------");
+		logger.info("----------bean的生命周期开始-----------");
 	}
 
 	@After
 	public void after () {
-		System.out.println("----------bean的生命周期结束-----------");
+		logger.info("----------bean的生命周期结束-----------");
 	}
 
 	@Test
