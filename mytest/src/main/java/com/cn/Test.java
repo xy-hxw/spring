@@ -42,7 +42,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		combineWithExpressionLanguage();
-		testXmlBeanFactory();
-		testDefaultResourceLoader();
+//		testXmlBeanFactory();
+//		testDefaultResourceLoader();
 	}
 }
