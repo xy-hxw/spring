@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.logging.Logger;
-
 /**
  * @author huoxianwei
  * @date 2019/1/10 20:41
@@ -30,7 +28,7 @@ public class MyBeanTest {
 	public void test () {
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("myBean.xml");
 		MyBean myBean = applicationContext.getBean("myBean", MyBean.class);
-		logger.info("加载到bean="+ myBean.toString());
+		logger.info("08-->加载到的bean="+ myBean.toString());
 		applicationContext.close();
 	}
 }

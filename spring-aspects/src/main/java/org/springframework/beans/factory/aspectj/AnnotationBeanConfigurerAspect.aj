@@ -50,6 +50,7 @@ public aspect AnnotationBeanConfigurerAspect extends AbstractInterfaceDrivenDepe
 	private BeanConfigurerSupport beanConfigurerSupport = new BeanConfigurerSupport();
 
 
+	@Override
 	public void setBeanFactory(BeanFactory beanFactory) {
 		this.beanConfigurerSupport.setBeanWiringInfoResolver(new AnnotationBeanWiringInfoResolver());
 		this.beanConfigurerSupport.setBeanFactory(beanFactory);

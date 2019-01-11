@@ -5,7 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.lang.Nullable;
 
 /**
  * @author huoxianwei
@@ -17,14 +16,14 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public Object postProcessBeforeInitialization(@NotNull Object bean, @NotNull String beanName) throws BeansException {
-		logger.info("02-->BeanPostProcessor postProcessBeforeInitialization 获取到beanName="+beanName);
+		logger.info("04-->BeanPostProcessor postProcessBeforeInitialization 获取到beanName="+beanName);
 		((MyBean) bean).setName("李四");
 		return bean;
 	}
 
 	@Override
 	public Object postProcessAfterInitialization(@NotNull Object bean, @NotNull String beanName) throws BeansException {
-		logger.info("BeanPostProcessor postProcessAfterInitialization 获取到beanName="+beanName);
+		logger.info("07-->BeanPostProcessor postProcessAfterInitialization 获取到beanName="+beanName);
 		((MyBean) bean).setAge(30);
 		return bean;
 	}

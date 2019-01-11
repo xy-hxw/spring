@@ -7,7 +7,9 @@
 		<constructor-arg name="name" value="张三"/>
 		<constructor-arg name="age" value="25"/>
 		<constructor-arg name="sex" value="男"/>
+		<constructor-arg name="beanName" value="get"/>
 	</bean>
+
 
 	<bean id="myBeanPostProcessor" class="com.cn.bean.MyBeanPostProcessor"/>
 </beans>
