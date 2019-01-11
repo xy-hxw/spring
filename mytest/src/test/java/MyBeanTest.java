@@ -1,10 +1,13 @@
 import com.cn.bean.MyBean;
+import com.cn.bean.MyBeanConstruct;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.annotation.Resource;
 
 /**
  * @author huoxianwei
