@@ -75,7 +75,7 @@ public class MyBean implements BeanNameAware, BeanFactoryAware, ApplicationConte
 	 * @throws Exception
 	 */
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		logger.info("05-->InitializingBean 接口被调用");
 	}
 
@@ -88,7 +88,7 @@ public class MyBean implements BeanNameAware, BeanFactoryAware, ApplicationConte
 	 * @throws Exception
 	 */
 	@Override
-	public void destroy() throws Exception {
+	public void destroy() {
 		logger.info("09-->DisposableBean方法执行了");
 	}
 

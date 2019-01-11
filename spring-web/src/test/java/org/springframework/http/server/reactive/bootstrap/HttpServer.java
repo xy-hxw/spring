@@ -33,4 +33,8 @@ public interface HttpServer extends InitializingBean, Lifecycle {
 
 	void setHandler(HttpHandler handler);
 
+	@Override
+	default void afterPropertiesSet() throws Exception {
+
+	}
 }
