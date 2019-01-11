@@ -6,13 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.logging.Logger;
+
 /**
  * @author huoxianwei
  * @date 2019/1/10 20:41
  */
 public class MyBeanTest {
 
-	private static final Log logger = LogFactory.getLog(MyBeanTest.class);
+	private Log logger = LogFactory.getLog(MyBeanTest.class);
 
 	@Before
 	public void before () {

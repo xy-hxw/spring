@@ -32,11 +32,11 @@ public class MyBean implements BeanNameAware {
 		logger.info("01-->BeanNameAware 接口被调用，获取到的beanName="+name);
 	}
 
-	public void myDestroy () {
-		logger.info("myDestroy 方法执行了");
-	}
-
 	public void myInit () {
 		logger.info("myInit 方法执行了");
+	}
+
+	public void myDestroy () {
+		logger.info("myDestroy 方法执行了");
 	}
 }

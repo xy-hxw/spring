@@ -17,14 +17,14 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 
 	@Override
 	public Object postProcessBeforeInitialization(@NotNull Object bean, @NotNull String beanName) throws BeansException {
-		logger.info("调用  BeanPostProcessor ---> postProcessBeforeInitialization 获取到beanName="+beanName);
+		logger.info("02-->BeanPostProcessor postProcessBeforeInitialization 获取到beanName="+beanName);
 		((MyBean) bean).setName("李四");
 		return bean;
 	}
 
 	@Override
 	public Object postProcessAfterInitialization(@NotNull Object bean, @NotNull String beanName) throws BeansException {
-		logger.info("调用  BeanPostProcessor ---> postProcessAfterInitialization 获取到beanName="+beanName);
+		logger.info("BeanPostProcessor postProcessAfterInitialization 获取到beanName="+beanName);
 		((MyBean) bean).setAge(30);
 		return bean;
 	}

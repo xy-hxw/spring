@@ -67,7 +67,7 @@ public class DefaultResourceLoader implements ResourceLoader {
 	 * @see java.lang.Thread#getContextClassLoader()
 	 */
 	public DefaultResourceLoader() {
-		logger.info("创建默认类加载器 this.classLoader = ClassUtils.getDefaultClassLoader()");
+		// 创建默认类加载器 this.classLoader = ClassUtils.getDefaultClassLoader()
 		this.classLoader = ClassUtils.getDefaultClassLoader();
 	}
 
@@ -203,8 +203,8 @@ public class DefaultResourceLoader implements ResourceLoader {
 	protected static class ClassPathContextResource extends ClassPathResource implements ContextResource {
 
 		public ClassPathContextResource(String path, @Nullable ClassLoader classLoader) {
+			// DefaultResourceLoader的内部类ClassPathContextResource 调用ClassPathResource的构造方法
 			super(path, classLoader);
-			logger.info("DefaultResourceLoader的内部类ClassPathContextResource 调用ClassPathResource的构造方法 ");
 		}
 
 		@Override
