@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.annotation.Resource;
-
 /**
  * @author huoxianwei
  * @date 2019/1/10 20:41
@@ -29,6 +27,8 @@ public class MyBeanTest {
 
 	@Test
 	public void test () {
+		MyBeanConstruct myBeanConstruct = new MyBeanConstruct();
+		myBeanConstruct.test();
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("myBean.xml");
 		MyBean myBean = applicationContext.getBean("myBean", MyBean.class);
 		logger.info("08-->加载到的bean="+ myBean.toString());

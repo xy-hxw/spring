@@ -17,7 +17,7 @@ public class MyBeanConstruct {
 	private static final Log logger = LogFactory.getLog(MyBeanPostProcessor.class);
 
 	/**
-	 * servlet容器init初始化方法之前执行
+	 * servlet容器init方法之前执行
 	 */
 	@PostConstruct
 	public void init() {
