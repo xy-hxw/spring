@@ -120,16 +120,20 @@ class ConstructorResolver {
 		BeanWrapperImpl bw = new BeanWrapperImpl();
 		this.beanFactory.initBeanWrapper(bw);
 
+		// 构造函数
 		Constructor<?> constructorToUse = null;
+		// 持有构造函数参数
 		ArgumentsHolder argsHolderToUse = null;
 		Object[] argsToUse = null;
 
 		if (explicitArgs != null) {
+			// 如果显式指定了参数，则优先使用（xmlBeanFactory.getBean("beanId", "name", age)）
 			argsToUse = explicitArgs;
 		}
 		else {
 			Object[] argsToResolve = null;
 			synchronized (mbd.constructorArgumentLock) {
+				// 优先从缓存获取
 				constructorToUse = (Constructor<?>) mbd.resolvedConstructorOrFactoryMethod;
 				if (constructorToUse != null && mbd.constructorArgumentsResolved) {
 					// Found a cached constructor...
@@ -139,17 +143,22 @@ class ConstructorResolver {
 					}
 				}
 			}
+			// 缓存中存在，则解析构造函数参数类型
 			if (argsToResolve != null) {
 				argsToUse = resolvePreparedArguments(beanName, mbd, bw, constructorToUse, argsToResolve, true);
 			}
 		}
-
+		// 缓存不存在或者没有显式指定参数
 		if (constructorToUse == null || argsToUse == null) {
 			// Take specified constructors, if any.
+			// 此处的构造函数不是配置文件中指定的构造函数，而是通过解析SmartInstantiationAwareBeanPostProcessor得出的构造函数
+			//  	参照：AbstractAutowireCapableBeanFactory-->determineConstructorsFromBeanPostProcessors(beanClass, beanName)
 			Constructor<?>[] candidates = chosenCtors;
 			if (candidates == null) {
 				Class<?> beanClass = mbd.getBeanClass();
 				try {
+					// 如果指定的构造函数不存在，根据方法访问级别获取所有的构造函数
+					// 此处的构造函数不是配置文件中的构造函数，是bean类中构造函数
 					candidates = (mbd.isNonPublicAccessAllowed() ?
 							beanClass.getDeclaredConstructors() : beanClass.getConstructors());
 				}
@@ -160,6 +169,7 @@ class ConstructorResolver {
 				}
 			}
 
+			// 有一个构造方法，没有显式的参数，没有构造参数值
 			if (candidates.length == 1 && explicitArgs == null && !mbd.hasConstructorArgumentValues()) {
 				Constructor<?> uniqueCandidate = candidates[0];
 				if (uniqueCandidate.getParameterCount() == 0) {
@@ -178,6 +188,7 @@ class ConstructorResolver {
 					mbd.getResolvedAutowireMode() == AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR);
 			ConstructorArgumentValues resolvedValues = null;
 
+			// 记录最小的构造函数的参数的个数
 			int minNrOfArgs;
 			if (explicitArgs != null) {
 				minNrOfArgs = explicitArgs.length;
@@ -188,23 +199,31 @@ class ConstructorResolver {
 				minNrOfArgs = resolveConstructorArguments(beanName, mbd, bw, cargs, resolvedValues);
 			}
 
+			// 构造器按修饰符和参数个数倒叙排列
 			AutowireUtils.sortConstructors(candidates);
 			int minTypeDiffWeight = Integer.MAX_VALUE;
 			Set<Constructor<?>> ambiguousConstructors = null;
 			LinkedList<UnsatisfiedDependencyException> causes = null;
 
+			// 循环所有的构造函数，确定使用哪一个构造函数
 			for (Constructor<?> candidate : candidates) {
 				Class<?>[] paramTypes = candidate.getParameterTypes();
 
+				// 构造函数不为空，且参数的个数>构造函数的参数个数，终止循环（已经按照参数个数倒序排序了）
+				// 进入此处的前提是 152行 (constructorToUse == null || argsToUse == null)，此处是否永远不会执行
 				if (constructorToUse != null && argsToUse.length > paramTypes.length) {
 					// Already found greedy constructor that can be satisfied ->
 					// do not look any further, there are only less greedy constructors left.
 					break;
 				}
+				// 从bean类解析的构造函数的参数个数 < 从beanDefinition中解析到的构造函数的参数个数
+				// 不使用此构造函数进行实例化，继续循环
+				// 构造函数的参数个数必须 >= beanDefinition中参数个数
 				if (paramTypes.length < minNrOfArgs) {
 					continue;
 				}
 
+				// 当前类内部类，持有所有的参数值
 				ArgumentsHolder argsHolder;
 				if (resolvedValues != null) {
 					try {
