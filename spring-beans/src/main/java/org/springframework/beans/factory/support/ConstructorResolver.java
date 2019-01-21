@@ -257,9 +257,18 @@ class ConstructorResolver {
 					argsHolder = new ArgumentsHolder(explicitArgs);
 				}
 
+				// 通过构造函数参数权重对比，得出最适合使用的构造函数
+				// 判断是在宽松模式下解析构造函数还是在严格模式下解析构造函数
+				// 1：宽松模式:例如构造函数为(String name,int age),配置文件中定义(value="美美",value="3")
+				// 	 那么对于age来讲,配置文件中的"3",可以被解析为int也可以被解析为String,
+				//   这个时候就需要来判断参数的权重,使用ConstructorResolver的静态内部类ArgumentsHolder分别对字符型和数字型的参数做权重判断
+				//   权重越小,则说明构造函数越匹配
+				// 2：严格模式:严格返回权重值,不会根据分别比较而返回比对值
+				// 3：minTypeDiffWeight = Integer.MAX_VALUE;而权重比较返回结果都是在Integer.MAX_VALUE做减法,起返回最大值为Integer.MAX_VALUE
 				int typeDiffWeight = (mbd.isLenientConstructorResolution() ?
 						argsHolder.getTypeDifferenceWeight(paramTypes) : argsHolder.getAssignabilityWeight(paramTypes));
 				// Choose this constructor if it represents the closest match.
+				// 如果构造函数最接近
 				if (typeDiffWeight < minTypeDiffWeight) {
 					constructorToUse = candidate;
 					argsHolderToUse = argsHolder;
@@ -295,6 +304,7 @@ class ConstructorResolver {
 						ambiguousConstructors);
 			}
 
+			// 缓存解析的构造函数
 			if (explicitArgs == null) {
 				argsHolderToUse.storeCache(mbd, constructorToUse);
 			}

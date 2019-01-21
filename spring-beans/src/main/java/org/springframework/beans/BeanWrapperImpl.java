@@ -206,21 +206,29 @@ public class BeanWrapperImpl extends AbstractNestablePropertyAccessor implements
 	 */
 	@Nullable
 	public Object convertForProperty(@Nullable Object value, String propertyName) throws TypeMismatchException {
+		// CachedIntrospectionResults-->缓存了PropertyDescriptor集合
 		CachedIntrospectionResults cachedIntrospectionResults = getCachedIntrospectionResults();
+		// PropertyDescriptor-->通过存储器导出一个属性：主要方法
+		// 1.getReadMethod() 读取属性值
+		// 2.getWriteMethod() 获取写入属性值
 		PropertyDescriptor pd = cachedIntrospectionResults.getPropertyDescriptor(propertyName);
 		if (pd == null) {
 			throw new InvalidPropertyException(getRootClass(), getNestedPath() + propertyName,
 					"No property '" + propertyName + "' found");
 		}
+		// 获取类型转换上下文
 		TypeDescriptor td = cachedIntrospectionResults.getTypeDescriptor(pd);
 		if (td == null) {
+			// 如果未能从缓存中获取，创建一个新的TypeDescriptor
 			td = cachedIntrospectionResults.addTypeDescriptor(pd, new TypeDescriptor(property(pd)));
 		}
+		// 转换类型
 		return convertForProperty(propertyName, null, value, td);
 	}
 
 	private Property property(PropertyDescriptor pd) {
 		GenericTypeAwarePropertyDescriptor gpd = (GenericTypeAwarePropertyDescriptor) pd;
+		// 获取javaBean的类型，可读方法，可写方法，及名称，并创建新的property对象
 		return new Property(gpd.getBeanClass(), gpd.getReadMethod(), gpd.getWriteMethod(), gpd.getName());
 	}
 
