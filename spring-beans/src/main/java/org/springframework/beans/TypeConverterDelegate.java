@@ -486,6 +486,7 @@ class TypeConverterDelegate {
 	}
 
 	private Object convertToTypedArray(Object input, @Nullable String propertyName, Class<?> componentType) {
+		// Collection类型转换为数组
 		if (input instanceof Collection) {
 			// Convert Collection elements to array elements.
 			Collection<?> coll = (Collection<?>) input;
@@ -498,6 +499,7 @@ class TypeConverterDelegate {
 			}
 			return result;
 		}
+		// 如果是数组
 		else if (input.getClass().isArray()) {
 			// Convert array elements, if necessary.
 			if (componentType.equals(input.getClass().getComponentType()) &&
@@ -513,6 +515,7 @@ class TypeConverterDelegate {
 			}
 			return result;
 		}
+		// 单个数组
 		else {
 			// A plain value: convert it to an array with a single component.
 			Object result = Array.newInstance(componentType, 1);
